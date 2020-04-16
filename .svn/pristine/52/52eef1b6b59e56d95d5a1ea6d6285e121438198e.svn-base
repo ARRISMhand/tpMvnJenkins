@@ -1,0 +1,52 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<packaging>jar</packaging>
+
+	<groupId>avl.itn</groupId>
+	<artifactId>tpMvnJenkins</artifactId>
+	<version>1.2-SNAPSHOT</version>
+
+	<name>tpMvnJenkins</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apche.maven.plugins</groupId>
+				<artifactId>maven-compiler-pligin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>avl.itn.tpMvnJenkins.AppTest</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+
+			</plugin>
+		</plugins>
+	</build>
+	
+					<dependencies>
+					<dependency>
+						<groupId>junit</groupId>
+						<artifactId>junit</artifactId>
+						<version>3.8.1</version>
+						<scope>test</scope>
+					</dependency>
+				</dependencies>
+	
+</project>
+
+
+
+
+	
+
+

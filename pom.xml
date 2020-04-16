@@ -1,25 +1,112 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-  <groupId>avl.itn</groupId>
-  <artifactId>tpMvnJenkins</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
+	<packaging>pom</packaging>
 
-  <name>tpMvnJenkins</name>
-  <url>http://maven.apache.org</url>
+	<groupId>avl.itn</groupId>
+	<artifactId>tpMvnJenkins</artifactId>
+	<version>1.2-SNAPSHOT</version>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+	<name>tpMvnJenkins</name>
+	<url>http://maven.apache.org</url>
 
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	
+		<!-- Pour que Maven puisse déployer les artifacts qu’il à créé dans la phase 
+		de package du build, -->
+	<!-- il a besoin d’une définition des informations de dépôt. Il faut donc 
+		lui définir un élément distributionManagement: -->
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>nexus-snapshots</id>   <!-- L'id correspond au nom d’identifiant de notre dépôt dans Maven, que 
+				l’on a nommé dans settings.xml -->
+			<url>http://localhost:8081/repository/maven-snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+
+
+	<repositories>
+		<repository>
+			<id>central</id>
+			<name>Maven Repository Switchboard</name>
+			<layout>default</layout>
+			<url>https://repo1.maven.org/maven2</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>central</id>
+			<name>Maven Plugin Repository</name>
+			<url>https://repo1.maven.org/maven2</url>
+			<layout>default</layout>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<build>
+		<plugins>
+					<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.5.1</version>
+				<executions>
+					<execution>
+						<id>default-deploy</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>deploy</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<serverId>nexus</serverId>
+					<nexusUrl>http://localhost:8081/</nexusUrl>
+					<skipStaging>true</skipStaging>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apche.maven.plugins</groupId>
+				<artifactId>maven-compiler-pligin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>avl.itn.tpMvnJenkins.AppTest</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+
+			</plugin>
+		</plugins>
+	</build>
+	
+					<dependencies>
+					<dependency>
+						<groupId>junit</groupId>
+						<artifactId>junit</artifactId>
+						<version>3.8.1</version>
+						<scope>test</scope>
+					</dependency>
+				</dependencies>
+	
 </project>
+
+
+
+
+	
+
+
